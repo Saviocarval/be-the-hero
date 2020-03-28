@@ -28,6 +28,15 @@ module.exports = {
         const {title, description, value} = req.body;
         const ong_id = req.headers.authorization;
 
+        const ong = await connection('ongs')
+            .where('id',ong_id)
+            .select('*')
+            .first()
+
+        if(!ong){
+            return res.status(400).json({erro: "ONG does not exist "});
+        }
+
         const [id] =  await connection('incidents').insert({
             title,
             description,
@@ -45,6 +54,10 @@ module.exports = {
             .where('id',id)
             .select('ong_id')
             .first();
+
+        if(!incidents){
+            return res.status(400).json({erro: "Id does not exist "});
+        }
         
         if(incidents.ong_id != ong_id){
             return res.status(401).json({erro: "Operation not permitted"})

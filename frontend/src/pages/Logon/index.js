@@ -9,12 +9,13 @@ import logoImg from'../../assets/logo.svg';
 
 function Logon() {
     const [id, setId] = useState("");
+    const [password, setPassword] = useState("");
     const history = useHistory();
 
    async function handleLogin(e){
         e.preventDefault();
         try {
-            const response = await api.post('sessions',{id});
+            const response = await api.post('sessions',{id,password});
 
             localStorage.setItem('ongId',id);
             localStorage.setItem('ongName',response.data.name);
@@ -39,6 +40,11 @@ function Logon() {
                         placeholder="Sua ID"
                         value={id}
                         onChange={e => setId(e.target.value)} 
+                        />
+                        <input 
+                        placeholder="Sua Senha"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)} 
                         />
                         <button className="button" type="submit">Entrar</button>
                         <Link className="back-link" to="/register">

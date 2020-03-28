@@ -12,6 +12,7 @@ function Register() {
     const [whatsapp, setWhatsApp] = useState('');
     const [city, setCity] = useState('');
     const [uf, setUf] = useState('');
+    const [password, setPassword] = useState('');
 
     const history = useHistory();
 
@@ -22,7 +23,8 @@ function Register() {
             email,
             whatsapp,
             city,
-            uf
+            uf,
+            password
         };
         try {
             const response = await api.post('ongs',data);
@@ -58,6 +60,12 @@ function Register() {
                     placeholder="E-mail"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
+                    />
+                    <input 
+                    type="password" 
+                    placeholder="Senha"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
                     />
                     <input
                     placeholder="WhatsApp"
